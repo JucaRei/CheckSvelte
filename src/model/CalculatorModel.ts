@@ -30,6 +30,3 @@ export default class CalculatorModel {
   }
 
 }
-
-const calc = new CalculatorModel()
-calc.valor
