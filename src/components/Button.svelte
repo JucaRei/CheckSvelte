@@ -4,12 +4,26 @@
   export let duplo: boolean = false;
   export let operacao: boolean = false;
   export let destaque: boolean = false;
+  export let onClick: (valor: string) => void = () => {};
+
+  // function click() {
+  //   console.log("click...");
+  // }
 </script>
 
 <!-- Passar uma propriedade para o botão -->
 <!-- <button class={`botao ${triplo ? "triplo" : ""}`}> -->
 <!-- outro jeito -->
-<button class="botao" class:triplo class:duplo class:operacao class:destaque>
+<!-- on:click={click} -->
+
+<button
+  on:click={() => onClick(texto)}
+  class="botao"
+  class:triplo
+  class:duplo
+  class:operacao
+  class:destaque
+>
   <!-- interpolou a propriedade -->
   {texto}
 </button>

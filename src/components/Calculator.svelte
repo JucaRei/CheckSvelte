@@ -2,18 +2,37 @@
   import Button from "./Button.svelte";
   import Line from "./Line.svelte";
   import Screen from "./Screen.svelte";
+
+  class Model {
+    valor: string;
+    constructor(valor: string = "0") {
+      this.valor = valor;
+    }
+
+    inc() {
+      return new Model(`${parseInt(this.valor) + 1}`);
+    }
+  }
+
+  let obj = new Model();
+
+  // reatividade
+  function numeroDigitado(numero: string) {
+    // obj.valor += numero;
+    obj = obj.inc();
+  }
 </script>
 
 <div class="calculadora">
-  <Screen valor="0123456789005445" />
+  <Screen valor={obj.valor} />
   <Line>
     <Button destaque triplo texto="AC" />
     <Button operacao texto="/" />
   </Line>
   <Line>
-    <Button texto="7" />
-    <Button texto="8" />
-    <Button texto="9" />
+    <Button texto="7" onClick={numeroDigitado} />
+    <Button texto="8" onClick={numeroDigitado} />
+    <Button texto="9" onClick={numeroDigitado} />
     <Button operacao texto="*" />
   </Line>
   <Line>
