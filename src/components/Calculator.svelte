@@ -1,56 +1,53 @@
 <script lang="ts">
+  import CalculatorModel from "../model/CalculatorModel";
+
   import Button from "./Button.svelte";
   import Line from "./Line.svelte";
   import Screen from "./Screen.svelte";
 
-  class Model {
-    valor: string;
-    constructor(valor: string = "0") {
-      this.valor = valor;
-    }
+  let calc = new CalculatorModel();
 
-    inc() {
-      return new Model(`${parseInt(this.valor) + 1}`);
-    }
-  }
+  const numeroDigitado = (num: string) => (calc = calc.numeroDigitado(num));
 
-  let obj = new Model();
+  const operacaoDigitada = (op: string) => calc = calc.operacaoDigitada(op);
 
-  // reatividade
-  function numeroDigitado(numero: string) {
-    // obj.valor += numero;
-    obj = obj.inc();
-  }
+  const calcular = () => calc = calc.calcular();
+
+  const pontoDigitado = () => calc = calc.pontoDigitado();
+
+  const limpar = () => calc = calc.limpar()
+
 </script>
 
 <div class="calculadora">
-  <Screen valor={obj.valor} />
+  <Screen valor={calc.valor} />
   <Line>
-    <Button destaque triplo texto="AC" />
-    <Button operacao texto="/" />
+    <Button destaque triplo texto="AC" onClick={limpar} />
+    <Button operacao texto="/" onClick={operacaoDigitada} />
   </Line>
   <Line>
     <Button texto="7" onClick={numeroDigitado} />
+    <!-- alterar a propria instancia calc -->
     <Button texto="8" onClick={numeroDigitado} />
     <Button texto="9" onClick={numeroDigitado} />
-    <Button operacao texto="*" />
+    <Button operacao texto="*" onClick={operacaoDigitada} />
   </Line>
   <Line>
-    <Button texto="4" />
-    <Button texto="5" />
-    <Button texto="6" />
-    <Button operacao texto="+" />
+    <Button texto="4" onClick={numeroDigitado} />
+    <Button texto="5" onClick={numeroDigitado} />
+    <Button texto="6" onClick={numeroDigitado} />
+    <Button operacao texto="+" onClick={operacaoDigitada} />
   </Line>
   <Line>
-    <Button texto="1" />
-    <Button texto="2" />
-    <Button texto="3" />
-    <Button operacao texto="-" />
+    <Button texto="1" onClick={numeroDigitado} />
+    <Button texto="2" onClick={numeroDigitado} />
+    <Button texto="3" onClick={numeroDigitado} />
+    <Button operacao texto="-" onClick={operacaoDigitada} />
   </Line>
   <Line>
-    <Button duplo texto="0" />
-    <Button texto="," />
-    <Button destaque texto="=" />
+    <Button duplo texto="0" onClick={numeroDigitado} />
+    <Button texto="," onClick={pontoDigitado} />
+    <Button destaque texto="=" onClick={calcular} />
   </Line>
 </div>
 
